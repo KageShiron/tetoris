@@ -71,6 +71,30 @@ void doAction( int action )
             break;
     }
 }
+void deleteLine(int line){
+    int width = brd->boardWidth;
+    for (int y = line ; y > 0 ; --y) {
+        for (int x = 0; x < width; ++x) {
+            SetBoardBlock(brd,x,y , GetBoardBlock(brd,x,y - 1));
+        }
+    }
+}
+void checkLine() {
+    int width = brd->boardWidth;
+    int height = brd->boardHeight;
+    int flag = 0;
+    for (int y = 0; y < height ; ++y) {
+        flag = 1;
+        for (int x = 0; x < width; ++x) {
+            if (GetBoardBlock(brd, x, y) == 0)
+            {
+                flag = 0;
+                break;
+            }
+        }
+        if(flag == 1)deleteLine(y);
+    }
+}
 void doEvery()
 {
     static int count = 0;
@@ -80,10 +104,12 @@ void doEvery()
         if(tryMove(brd, mino, 0, 1) != 0) {
             CopyTetoriminoToBoard(brd, mino);
             newMino();
+            checkLine();
         }
         count = 0;
     }
 }
+
 
 void DoFrame( int action )
 {
