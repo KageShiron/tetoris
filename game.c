@@ -56,9 +56,13 @@ void doAction( int action )
     {
         case GA_A:
             SpinTetoriminoClockwise(mino);
+            if( HitTestNow(brd,mino) != 0)  //あたっていたら回転失敗
+                SpinTetoriminoCounterClockwise(mino);
             break;
         case GA_B:
             SpinTetoriminoCounterClockwise(mino);
+            if( HitTestNow(brd,mino) != 0)  //あたっていたら回転失敗
+                SpinTetoriminoClockwise(mino);
         case GA_LEFT:
             tryMove(brd, mino, -1, 0);
             break;

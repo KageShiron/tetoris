@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "tetorimino.h"
 
-int *patterns;
+char *patterns;
 
 
 int LoadTetorimino()
@@ -15,8 +15,9 @@ int LoadTetorimino()
     if( fp == NULL )return 0;
     int head;
     fread(&head,sizeof(int),1,fp);
+    fseek(fp,0x10 - sizeof(int) , SEEK_CUR);
     patterns = malloc( head );
-    int ret = fread(patterns,head,1,fp);
+    int ret = fread(patterns,1,head,fp);
     fclose(fp);
     return ret;
 }
