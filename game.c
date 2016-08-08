@@ -10,7 +10,7 @@
 
 static BOARD *brd;
 static TETORIMINO *mino;
-static int speed = 9000;
+static int speed = 5000;
 
 void newMino()
 {
